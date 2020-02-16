@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "EmailValidator",
+        "repositoryURL": "https://github.com/twodayslate/EmailValidator.git",
+        "state": {
+          "branch": "master",
+          "revision": "864bcd3e55addd22d06d956797225932763f9ee8",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

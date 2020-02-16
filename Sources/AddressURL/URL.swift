@@ -1,5 +1,6 @@
 import Foundation
 import Network
+import EmailValidator
 
 extension URL {
     // MARK: - Initializers
@@ -74,12 +75,26 @@ extension URL {
     }
 
     var emailAddress: String? {
-        guard let host = self.hostname, let user = self.user else {
+        var email: String?
+        if self.scheme == "mailto" {
+            email = String(self.absoluteString.suffix(self.absoluteString.count - 8))
+            
+        } else if let noScheme = self.with(component: .scheme(nil)) {
+            email = String(noScheme.absoluteString.suffix(noScheme.absoluteString.count - 2))
+        }
+        
+        guard let address = email else {
             return nil
         }
-        return "\(user)@\(host)"
+        if EmailValidator.validate(email: address, allowTopLevelDomains: true, allowInternational: true) {
+            return address
+        }
+
+        return nil
     }
 
+    // MARK: - Helpers
+    
     /**
     - SeeAlso:
      [TLDExtractSwift](https://github.com/gumob/TLDExtractSwift/blob/master/Source/TLDExtract.swift#L59)

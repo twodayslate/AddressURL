@@ -6,15 +6,13 @@ Requires iOS 12.0+ as the [Network](https://developer.apple.com/documentation/ne
 
 For tld and domain information check out https://github.com/gumob/TLDExtractSwift
 
-For improved email validation use https://github.com/evanrobertson/EmailValidator
-
 ## Usage
 
 IP Address can be converted to URLs
 
 ```swift
-IPv4Address("8.8.8.8").url!.with(component: .scheme("https")!.absoluteString // https://8.8.8.8
-IPv6Address("::").url!.with(component: .scheme("https")!.absoluteString // https://[::]
+IPv4Address("8.8.8.8").url.with(component: .scheme("https")!.absoluteString // https://8.8.8.8
+IPv6Address("::").url.with(component: .scheme("https")!.absoluteString // https://[::]
 ```
 
 Alternativly you can get an IP Address from a URL
@@ -41,3 +39,4 @@ let url = URL(email: "hello@gorak.us")
 url.absoluteString // mailto://hello@gorak.us
 url.emailAddress // hello@gorak.us
 ```
+Email address parsing is handled by [EmailValidator](https://github.com/evanrobertson/EmailValidator))

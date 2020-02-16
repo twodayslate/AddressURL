@@ -25,7 +25,7 @@ final class AddressURLTests: XCTestCase {
         XCTAssertNil(url.ipv4Address)
         XCTAssertNotNil(url.ipv6Address)
         XCTAssertFalse(url.isEmail)
-        
+
         var c = URLComponents()
         c.host = "64:ff9b::0.0.0.0"
         XCTAssert(c.url != nil, "\(c) should not be nil")
@@ -84,8 +84,6 @@ final class AddressURLTests: XCTestCase {
             XCTAssertFalse(URLComponent.host(v).url!.isEmail)
             XCTAssertFalse(URLComponent.host(v).url!.isIPv4)
         }
-        
-        
     }
     
     func testInvalidIPv6() {
