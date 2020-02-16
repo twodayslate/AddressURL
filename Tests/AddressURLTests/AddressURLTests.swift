@@ -51,6 +51,10 @@ final class AddressURLTests: XCTestCase {
             XCTAssertNotNil(url.ipv6Address)
             XCTAssertFalse(url.isEmail)
             XCTAssertEqual(url.with(scheme: "https")?.absoluteString, "https://\(v)")
+            
+            let test = URL(string: "https://\(v)")
+            XCTAssertNotNil(test)
+            XCTAssertNotNil(test?.ipv6Address)
         }
 
         let validIps = [
@@ -80,6 +84,8 @@ final class AddressURLTests: XCTestCase {
             XCTAssertFalse(URLComponent.host(v).url!.isEmail)
             XCTAssertFalse(URLComponent.host(v).url!.isIPv4)
         }
+        
+        
     }
     
     func testInvalidIPv6() {
