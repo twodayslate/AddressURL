@@ -26,19 +26,27 @@ extension URL {
     /**
         Creates a URL with the `mailto://` scheme
      */
-    public init?(email: String) {
-        guard email.contains("."), email.contains("@") else {
+    public init?(email: String, allowTopLevelDomains: Bool = true, allowInternational: Bool = true) {
+        if email.hasPrefix("mailto://") {
+            let address = String(email.suffix(email.count - "mailto://".count))
+            guard EmailValidator.validate(email: address, allowTopLevelDomains: allowTopLevelDomains, allowInternational: allowInternational) else {
+                return nil
+            }
+            self.init(string: "mailto://\(address)")
+            return
+        } else if email.hasPrefix("mailto:") {
+            let address = String(email.suffix(email.count - "mailto:".count))
+            guard EmailValidator.validate(email: address, allowTopLevelDomains: allowTopLevelDomains, allowInternational: allowInternational) else {
+                return nil
+            }
+            self.init(string: "mailto://\(address)")
+            return
+        }
+        
+        guard EmailValidator.validate(email: email, allowTopLevelDomains: allowTopLevelDomains, allowInternational: allowInternational) else {
             return nil
         }
-        if email.hasPrefix("mailto://") {
-            self.init(string: email)
-        } else if email.hasPrefix("mailto:") {
-            let suffix = String(email.suffix(email.count - "mailto:".count))
-            print("suffix", suffix)
-            self.init(string: "mailto://\(suffix)")
-        } else {
-            self.init(string: "mailto://\(email)")
-        }
+        self.init(string: "mailto://\(email)")
     }
 
     // TODO: I want url.component(.host) to return the URLComponent.host
@@ -77,10 +85,10 @@ extension URL {
     var emailAddress: String? {
         var email: String?
         if self.scheme == "mailto" {
-            email = String(self.absoluteString.suffix(self.absoluteString.count - 8))
+            email = String(self.absoluteString.suffix(self.absoluteString.count - "mailto://".count))
             
         } else if let noScheme = self.with(component: .scheme(nil)) {
-            email = String(noScheme.absoluteString.suffix(noScheme.absoluteString.count - 2))
+            email = String(noScheme.absoluteString.suffix(noScheme.absoluteString.count - "//".count))
         }
         
         guard let address = email else {
@@ -89,7 +97,6 @@ extension URL {
         if EmailValidator.validate(email: address, allowTopLevelDomains: true, allowInternational: true) {
             return address
         }
-
         return nil
     }
 
