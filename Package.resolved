@@ -5,9 +5,9 @@
         "package": "EmailValidator",
         "repositoryURL": "https://github.com/evanrobertson/EmailValidator.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "ff809780f4a34fd609ccd34b7611157c9e043763",
-          "version": null
+          "version": "1.0.3"
         }
       }
     ]
