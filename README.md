@@ -39,4 +39,4 @@ let url = URL(email: "hello@gorak.us")
 url.absoluteString // mailto://hello@gorak.us
 url.emailAddress // hello@gorak.us
 ```
-Email address parsing is handled by [EmailValidator](https://github.com/evanrobertson/EmailValidator))
+Email address parsing is handled by [EmailValidator](https://github.com/evanrobertson/EmailValidator)
