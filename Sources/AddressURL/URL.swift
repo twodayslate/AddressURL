@@ -127,7 +127,7 @@ extension URL {
 
         return nil
     }
-    
+
     internal func dump_components() -> [String:Any?] {
         let dict: [String:Any?] = [
             "scheme": self.scheme,
@@ -145,12 +145,16 @@ extension URL {
         return dict
     }
 
+    /**
+        When a URL recieves a string with out a valid schema it may still create the url, this will attempt to fix that
+        as just settings the URLComponent.schema doesn't always give the desired output
+     */
     public func with(scheme newScheme: String) -> URL? {
         var using = self
         if self.scheme != nil {
             using = self.with(component: .scheme(nil))!
         }
-        let absStr = using.absoluteString.suffix(using.absoluteString.count - 2)
+        let absStr = using.absoluteString.suffix(using.absoluteString.count - "//".count)
         if newScheme.hasSuffix("://") {
             return URL(string: newScheme + absStr)
         } else if newScheme.hasSuffix(":") {

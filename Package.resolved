@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "EmailValidator",
-        "repositoryURL": "https://github.com/twodayslate/EmailValidator.git",
+        "repositoryURL": "https://github.com/evanrobertson/EmailValidator.git",
         "state": {
           "branch": "master",
-          "revision": "864bcd3e55addd22d06d956797225932763f9ee8",
+          "revision": "ff809780f4a34fd609ccd34b7611157c9e043763",
           "version": null
         }
       }
