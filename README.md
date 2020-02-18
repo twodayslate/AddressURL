@@ -2,9 +2,9 @@
 
 A simple Swift Package that extends URL with some helpful functions for IP and email address
 
-Requires iOS 12.0+ as the [Network](https://developer.apple.com/documentation/network) API is used.
+Requires iOS 12.0+ since the [Network](https://developer.apple.com/documentation/network) API is used.
 
-For tld and domain information check out https://github.com/gumob/TLDExtractSwift
+For domain information check out [TLDExtractSwift](https://github.com/gumob/TLDExtractSwift).
 
 ## Usage
 
