@@ -82,7 +82,7 @@ extension URL {
         return true
     }
 
-    var emailAddress: String? {
+    public var emailAddress: String? {
         var email: String?
         if self.scheme == "mailto" {
             email = String(self.absoluteString.suffix(self.absoluteString.count - "mailto://".count))
