@@ -16,7 +16,7 @@ extension IPv6Address {
         self.init(host)
     }
 
-    var url: URL {
+    public var url: URL {
         return URL(address: self)
     }
 }
