@@ -13,6 +13,7 @@ public enum URLComponent {
     case user(_: String?)
     case password(_: String?)
     case path(_: String)
+	case port(_: Int?)
     
     public var url: URL? {
         var comps = URLComponents()
@@ -27,6 +28,8 @@ public enum URLComponent {
             comps.password = password
         case .path(let path):
             comps.path = path
+		case .port(let port):
+			comps.port = port
         }
 
         return comps.url

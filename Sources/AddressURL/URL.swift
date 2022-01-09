@@ -66,6 +66,8 @@ extension URL {
             components.password = password
         case .path(let path):
             components.path = path
+		case .port(let port):
+			components.port = port
         }
         return components.url
     }
