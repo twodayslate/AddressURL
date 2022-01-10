@@ -20,19 +20,3 @@ extension IPv4Address {
         return URL(address: self)
     }
 }
-
-public struct IPv4AddressWithPort {
-	public let ipV4Address: IPv4Address
-	public let port: Int?
-	
-	public init(ipV4Address: IPv4Address, port: Int? = nil) {
-		self.ipV4Address = ipV4Address
-		self.port = port
-	}
-	
-	public init?(ipV4AddressString: String, port: Int? = nil) {
-		guard let ipV4Address = IPv4Address(ipV4AddressString) else { return nil }
-		self.ipV4Address = ipV4Address
-		self.port = port
-	}
-}

@@ -130,7 +130,7 @@ extension URL {
         return nil
     }
 
-    internal func dump_components() -> [String:Any?] {
+    internal func dump_components() -> [String: Any?] {
         let dict: [String:Any?] = [
             "scheme": self.scheme,
             "user": self.user,
