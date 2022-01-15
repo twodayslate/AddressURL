@@ -66,6 +66,8 @@ extension URL {
             components.password = password
         case .path(let path):
             components.path = path
+		case .port(let port):
+			components.port = port
         }
         return components.url
     }
@@ -128,7 +130,7 @@ extension URL {
         return nil
     }
 
-    internal func dump_components() -> [String:Any?] {
+    internal func dump_components() -> [String: Any?] {
         let dict: [String:Any?] = [
             "scheme": self.scheme,
             "user": self.user,
