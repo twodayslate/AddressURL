@@ -109,7 +109,7 @@ final class AddressURLTests: XCTestCase {
         XCTAssertEqual(url?.emailAddress, "hello+tag@gorak.us")
     }
 	
-	func testValidIPv4WithPort() {
+	func testValidIPv4WithPort() throws {
 		let validIps = [
 			"127.0.0.1:80"
 			]
@@ -118,18 +118,16 @@ final class AddressURLTests: XCTestCase {
 			let vComponents = v.components(separatedBy: ":")
 			let ipAdressString = vComponents.indices.contains(0) ? vComponents[0] : nil
 			let ipPort = vComponents.indices.contains(1) ? Int(vComponents[1]) : nil
-			let ip = IPv4Address(ipAdressString ?? "")
-			XCTAssertNotNil(ip)
-			let url = URL(address: ip!).with(component: .port(ipPort))
-			XCTAssertNotNil(url)
-			XCTAssertNotNil(url!.ipv4Address)
-			XCTAssertNil(url!.ipv6Address)
-			let components = url?.dump_components()
-			XCTAssertTrue((components?.contains(where: { $0.key == "port" && $0.value as? Int == ipPort })) ?? false)
+			let ip = try XCTUnwrap(IPv4Address(ipAdressString ?? ""))
+			let url = try XCTUnwrap(URL(address: ip).with(component: .port(ipPort)))
+			XCTAssertNotNil(url.ipv4Address)
+			XCTAssertNil(url.ipv6Address)
+			let components = url.dump_components()
+			XCTAssertTrue(components.contains(where: { $0.key == "port" && $0.value as? Int == ipPort }))
 		}
 	}
 	
-	func testValidIPv6WithPort() {
+	func testValidIPv6WithPort() throws {
 		let validHosts = [
 			"[64:ff9b::0.0.0.0]:80",
 			"[::]:80",
@@ -147,12 +145,11 @@ final class AddressURLTests: XCTestCase {
 			let vComponents = v.components(separatedBy: ":")
 			let ipAdressString = vComponents[0...vComponents.count-2].joined(separator: ":")
 			let ipPort = Int(vComponents.last ?? "")
-			let url = URLComponent.host(ipAdressString).url!.with(component: .port(ipPort))
-			XCTAssertNotNil(url)
-			XCTAssertNotNil(url!.ipv6Address)
-			XCTAssertNil(url!.ipv4Address)
-			let components = url?.dump_components()
-			XCTAssertTrue((components?.contains(where: { $0.key == "port" && $0.value as? Int == ipPort })) ?? false)
+			let url = try XCTUnwrap(URLComponent.host(ipAdressString).url!.with(component: .port(ipPort)))
+			XCTAssertNotNil(url.ipv6Address)
+			XCTAssertNil(url.ipv4Address)
+			let components = url.dump_components()
+			XCTAssertTrue(components.contains(where: { $0.key == "port" && $0.value as? Int == ipPort }))
 		}
 	}
 
