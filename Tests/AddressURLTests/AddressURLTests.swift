@@ -108,6 +108,16 @@ final class AddressURLTests: XCTestCase {
         XCTAssertNotNil(url?.emailAddress)
         XCTAssertEqual(url?.emailAddress, "hello+tag@gorak.us")
     }
+    
+    func test_scheme() throws {
+        let url = try XCTUnwrap(URL(string: "zac.gorak.us"))
+        let withComponent = try XCTUnwrap(url.with(component: .scheme("http")))
+        let newUrl = try XCTUnwrap(url.with(scheme: "https"))
+        XCTAssertEqual(newUrl.absoluteString, "https://zac.gorak.us")
+        XCTAssertNotEqual(newUrl.absoluteString, withComponent.absoluteString)
+        let newNewUrl = try XCTUnwrap(newUrl.with(scheme: "http"))
+        XCTAssertEqual(newNewUrl.absoluteString, "http://zac.gorak.us")
+    }
 
     static var allTests = [
         ("test8.8.8.8", testEightDotEightDotEightDotEight),

@@ -154,7 +154,10 @@ extension URL {
         if self.scheme != nil {
             using = self.with(component: .scheme(nil))!
         }
-        let absStr = using.absoluteString.suffix(using.absoluteString.count - "//".count)
+        var absStr = using.absoluteString
+        if using.absoluteString.hasPrefix("//") {
+            absStr = String(using.absoluteString.suffix(using.absoluteString.count - "//".count))
+        }
         if newScheme.hasSuffix("://") {
             return URL(string: newScheme + absStr)
         } else if newScheme.hasSuffix(":") {
